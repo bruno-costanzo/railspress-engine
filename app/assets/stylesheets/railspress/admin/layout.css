@@ -194,12 +194,8 @@
 
 .rp-sidebar-credit-link {
   color: var(--rp-sidebar-text-active);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-}
-
-.rp-sidebar-credit-link:hover {
-  border-bottom-color: currentColor;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* Main Content Area */

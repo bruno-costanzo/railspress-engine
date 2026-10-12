@@ -36,6 +36,7 @@
   <%= form.file_field field_name,
         accept: accept,
         class: "rp-sr-only",
+        aria: { labelledby: form.field_id(field_name, :prompt) },
         data: {
           railspress__dropzone_target: "input",
           action: "change->railspress--dropzone#change"
@@ -53,7 +54,7 @@
       <circle cx="8.5" cy="8.5" r="1.5"/>
       <polyline points="21 15 16 10 5 21"/>
     </svg>
-    <p class="rp-dropzone__prompt" data-railspress--dropzone-target="prompt">
+    <p class="rp-dropzone__prompt" id="<%= form.field_id(field_name, :prompt) %>" data-railspress--dropzone-target="prompt">
       <strong><%= prompt.split.first %></strong> <%= prompt.split[1..].join(" ") %>
     </p>
     <p class="rp-dropzone__hint"><%= hint %></p>

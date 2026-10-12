@@ -1,5 +1,5 @@
 <div class="rp-form-group">
-  <label class="rp-label"><%= label %></label>
+  <label class="rp-label" for="<%= id %>"><%= label %></label>
   <% textarea_classes = ["rp-input", "rp-input--mono", "rp-input--code", local_assigns[:textarea_class]].compact.join(" ") %>
   <textarea id="<%= id %>"
             class="<%= textarea_classes %>"
