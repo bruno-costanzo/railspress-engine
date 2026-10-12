@@ -4,13 +4,13 @@
 
 <% if @content_groups.any? %>
   <div class="rp-filter-bar">
-    <%= form_with url: admin_content_elements_path, method: :get, class: "rp-filter-form" do |f| %>
+    <%= form_with url: admin_content_elements_path, method: :get, class: "rp-filter-form", data: { controller: "railspress--auto-submit" } do |f| %>
       <div class="rp-form-group rp-form-group--inline">
         <%= f.label :content_group_id, "Filter by group:", class: "rp-label" %>
         <%= f.select :content_group_id,
               options_from_collection_for_select(@content_groups, :id, :name, params[:content_group_id]),
               { include_blank: "All Groups" },
-              { class: "rp-select", onchange: "this.form.requestSubmit()" } %>
+              { class: "rp-select", data: { action: "railspress--auto-submit#submit" } } %>
       </div>
     <% end %>
   </div>

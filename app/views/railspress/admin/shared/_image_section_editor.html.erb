@@ -61,7 +61,7 @@
                     method: :patch,
                     multipart: true,
                     data: {
-                      controller: "railspress--focal-point",
+                      controller: "railspress--focal-point railspress--image-editor",
                       railspress__focal_point_x_value: focal_point[:x],
                       railspress__focal_point_y_value: focal_point[:y]
                     },
@@ -73,16 +73,18 @@
             <%# Change image - file input that auto-submits %>
             <label class="rp-btn rp-btn--outline rp-btn--sm">
               Change
-              <%= file_field_tag :image, accept: "image/*", class: "rp-sr-only", onchange: "this.form.submit()" %>
+              <%= file_field_tag :image, accept: "image/*", class: "rp-sr-only",
+                    data: { action: "change->railspress--image-editor#replace" } %>
             </label>
 
             <%# Remove image - button that sets hidden field and submits %>
             <button type="button"
                     class="rp-btn rp-btn--outline rp-btn--sm rp-btn--danger"
-                    onclick="if(confirm('Remove this image?')) { this.form.querySelector('[name=remove_image]').value = '1'; this.form.submit(); }">
+                    data-action="railspress--image-editor#remove"
+                    data-railspress--image-editor-confirmation-param="Remove this image?">
               Remove
             </button>
-            <%= hidden_field_tag :remove_image, "0" %>
+            <%= hidden_field_tag :remove_image, "0", data: { railspress__image_editor_target: "removeImage" } %>
 
             <%= link_to "Cancel", cancel_url,
                   class: "rp-btn rp-btn--outline rp-btn--sm",

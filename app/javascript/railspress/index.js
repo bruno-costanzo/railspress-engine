@@ -28,6 +28,10 @@ import CropController from "railspress/controllers/crop_controller"
 import ImageSectionController from "railspress/controllers/image_section_controller"
 import CmsInlineEditorController from "railspress/controllers/cms_inline_editor_controller"
 import ContentElementFormController from "railspress/controllers/content_element_form_controller"
+import FileDropController from "railspress/controllers/file_drop_controller"
+import ReadingTimeController from "railspress/controllers/reading_time_controller"
+import ImageEditorController from "railspress/controllers/image_editor_controller"
+import AutoSubmitController from "railspress/controllers/auto_submit_controller"
 
 // Controller definitions with their identifiers
 const controllers = {
@@ -36,7 +40,11 @@ const controllers = {
   "railspress--crop": CropController,
   "railspress--image-section": ImageSectionController,
   "rp--cms-inline-editor": CmsInlineEditorController,
-  "railspress--content-element-form": ContentElementFormController
+  "railspress--content-element-form": ContentElementFormController,
+  "railspress--file-drop": FileDropController,
+  "railspress--reading-time": ReadingTimeController,
+  "railspress--image-editor": ImageEditorController,
+  "railspress--auto-submit": AutoSubmitController
 }
 
 /**
@@ -56,7 +64,7 @@ if (typeof window !== "undefined" && window.Stimulus) {
 }
 
 // Export individual controllers for advanced use cases
-export { FocalPointController, DropzoneController, CropController, ImageSectionController, CmsInlineEditorController, ContentElementFormController }
+export { FocalPointController, DropzoneController, CropController, ImageSectionController, CmsInlineEditorController, ContentElementFormController, FileDropController, ReadingTimeController, ImageEditorController, AutoSubmitController }
 
 // Re-export the legacy function for backwards compatibility
 export { register as registerRailspressControllers }

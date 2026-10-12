@@ -94,8 +94,12 @@
     Upload a previously exported ZIP file. Existing content is matched by name and updated. Deleted content is restored if present in the import file.
   </p>
 
-  <%= form_with url: import_admin_cms_transfer_path, method: :post, multipart: true do |f| %>
-    <label for="cms_import_file" class="rp-dropzone" id="cms-dropzone" style="margin-bottom: 1rem;">
+  <%= form_with url: import_admin_cms_transfer_path, method: :post, multipart: true, data: { controller: "railspress--file-drop" } do |f| %>
+    <label for="cms_import_file" class="rp-dropzone" id="cms-dropzone" style="margin-bottom: 1rem;"
+           data-action="dragenter->railspress--file-drop#activate
+                        dragover->railspress--file-drop#activate
+                        dragleave->railspress--file-drop#deactivate
+                        drop->railspress--file-drop#drop">
       <div class="rp-dropzone-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -107,61 +111,15 @@
         <strong>Choose a ZIP file or drag it here</strong>
         <span>Exported CMS content (.zip)</span>
       </div>
-      <%= file_field_tag :file, id: "cms_import_file", class: "rp-dropzone-input", accept: ".zip" %>
+      <%= file_field_tag :file, id: "cms_import_file", class: "rp-dropzone-input", accept: ".zip",
+            data: { railspress__file_drop_target: "input", action: "change->railspress--file-drop#update" } %>
     </label>
 
-    <div id="cms-file-info" hidden style="margin-bottom: 1rem; padding: 0.5rem 0.75rem; background: var(--rp-bg-secondary); border-radius: 6px; font-size: 0.875rem;"></div>
+    <div id="cms-file-info" data-railspress--file-drop-target="summary" hidden style="margin-bottom: 1rem; padding: 0.5rem 0.75rem; background: var(--rp-bg-secondary); border-radius: 6px; font-size: 0.875rem;"></div>
 
     <div class="rp-form-actions">
-      <%= f.submit "Import", class: "rp-btn rp-btn--primary", id: "cms-import-btn", disabled: true %>
+      <%= f.submit "Import", class: "rp-btn rp-btn--primary", id: "cms-import-btn", disabled: true, data: { railspress__file_drop_target: "submit" } %>
     </div>
   <% end %>
 </div>
 
-<script>
-(function() {
-  var dropzone = document.getElementById('cms-dropzone');
-  var input = document.getElementById('cms_import_file');
-  var fileInfo = document.getElementById('cms-file-info');
-  var submitBtn = document.getElementById('cms-import-btn');
-
-  ['dragenter', 'dragover'].forEach(function(event) {
-    dropzone.addEventListener(event, function(e) {
-      e.preventDefault();
-      dropzone.classList.add('rp-dropzone--active');
-    });
-  });
-
-  ['dragleave', 'drop'].forEach(function(event) {
-    dropzone.addEventListener(event, function(e) {
-      e.preventDefault();
-      dropzone.classList.remove('rp-dropzone--active');
-    });
-  });
-
-  dropzone.addEventListener('drop', function(e) {
-    input.files = e.dataTransfer.files;
-    updateFileInfo();
-  });
-
-  input.addEventListener('change', updateFileInfo);
-
-  function updateFileInfo() {
-    if (input.files.length === 0) {
-      fileInfo.hidden = true;
-      submitBtn.disabled = true;
-      return;
-    }
-    var file = input.files[0];
-    fileInfo.textContent = file.name + ' (' + formatSize(file.size) + ')';
-    fileInfo.hidden = false;
-    submitBtn.disabled = false;
-  }
-
-  function formatSize(bytes) {
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-  }
-})();
-</script>

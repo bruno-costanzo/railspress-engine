@@ -730,7 +730,7 @@ cp "$(bundle info --path railspress-engine)/app/views/railspress/admin/posts/_fo
 
 ### Override the Admin Layout
 
-Copy the current engine layout before modifying it. Preserve the Lexxy and `railspress/application` stylesheet tags, CSRF/CSP tags, importmap tags, `import "railspress"`, and the two packaged admin/Markdown scripts. The current layout uses `.rp-admin-layout`, `.rp-sidebar`, and `.rp-main`; compare an override with the engine copy during each upgrade.
+Copy the current engine layout before modifying it. Preserve the Lexxy and `railspress/application` stylesheet tags, CSRF/CSP tags, importmap tags, `javascript_import_module_tag "railspress"` (it carries the Content Security Policy nonce), and the two packaged admin/Markdown scripts. The current layout uses `.rp-admin-layout`, `.rp-sidebar`, and `.rp-main`; compare an override with the engine copy during each upgrade.
 
 ### Adding Custom Sidebar Links
 

@@ -133,15 +133,17 @@
 
         <div class="rp-form-group">
           <%= form.label :reading_time, "Reading Time (min)", class: "rp-label" %>
-          <div class="rp-input-with-button">
+          <div class="rp-input-with-button" data-controller="railspress--reading-time">
             <%= form.number_field :reading_time,
                 class: "rp-input",
                 min: 1,
-                placeholder: @post.persisted? ? @post.calculate_reading_time : "Auto" %>
+                placeholder: @post.persisted? ? @post.calculate_reading_time : "Auto",
+                data: { railspress__reading_time_target: "input" } %>
             <% if @post.persisted? %>
               <button type="button"
                       class="rp-btn rp-btn--secondary rp-btn--sm"
-                      onclick="this.previousElementSibling.value = '<%= @post.calculate_reading_time %>'">
+                      data-action="railspress--reading-time#calculate"
+                      data-railspress--reading-time-minutes-param="<%= @post.calculate_reading_time %>">
                 Calculate
               </button>
             <% end %>

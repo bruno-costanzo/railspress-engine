@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Admin under a nonce-based Content Security Policy**: The admin layout imports `railspress` with `javascript_import_module_tag`, so the module script carries the request's nonce. The inline scripts and `on*` handlers on the post import, CMS transfer, post form, image editor, and content element pages moved into Stimulus controllers, so the import buttons no longer stay disabled under a policy such as `script-src 'self'` with a nonce. Like the image forms, these pages now need the RailsPress Stimulus controllers registered.
 - **Public rich-text code blocks**: Added engine baseline styles and documented host-app CSS that contain long preformatted lines with internal horizontal scrolling across mobile and desktop layouts, with wrapping restored for print.
 
 ### Upgrade Notes (target: Unreleased)
