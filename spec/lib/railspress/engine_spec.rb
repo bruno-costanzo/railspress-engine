@@ -74,6 +74,24 @@ RSpec.describe Railspress::Engine do
 
       expect(stylesheets.join).not_to include("fonts.googleapis.com", "fonts.gstatic.com")
     end
+
+    it "keeps status text on its tinted background at a 4.5:1 contrast ratio or more" do
+      css = Railspress::Engine.root.join("app/assets/stylesheets/railspress/admin/variables.css").read
+      tokens = css.scan(/(--rp-[a-z-]+):\s*#(\h{6});/).to_h
+      luminance = lambda do |hex|
+        red, green, blue = hex.scan(/../).map { |channel| channel.to_i(16) / 255.0 }.map do |value|
+          value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055)**2.4
+        end
+        0.2126 * red + 0.7152 * green + 0.0722 * blue
+      end
+
+      ratios = %w[primary success danger].to_h do |status|
+        lighter, darker = [ tokens["--rp-#{status}-light"], tokens["--rp-#{status}"] ].map(&luminance).sort.reverse
+        [ status, ((lighter + 0.05) / (darker + 0.05)).round(2) ]
+      end
+
+      expect(ratios.values).to all(be >= 4.5), ratios.inspect
+    end
   end
 
   describe "configuration validation" do

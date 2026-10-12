@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Admin accessibility**: Fixed the axe-core WCAG 2.1 A/AA violations on the admin pages: the sidebar credit link is underlined instead of told apart by color alone, and the post list filters, dropzone file inputs, and copyable textareas have accessible names.
+- **Admin accessibility**: Fixed the axe-core WCAG 2.1 A/AA violations on the admin pages: the sidebar credit link is underlined instead of told apart by color alone, the post list filters, dropzone file inputs, and copyable textareas have accessible names, and `--rp-success` is `#457453` (was `#4a7c59`) so success badges reach a 4.5:1 contrast ratio on `--rp-success-light`.
 - **Public rich-text code blocks**: Added engine baseline styles and documented host-app CSS that contain long preformatted lines with internal horizontal scrolling across mobile and desktop layouts, with wrapping restored for print.
 
 ### Upgrade Notes (target: Unreleased)

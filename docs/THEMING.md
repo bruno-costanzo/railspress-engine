@@ -54,7 +54,7 @@ These are all of the custom properties currently defined by RailsPress. Componen
 | `--rp-primary` | `#3d5a80` | Primary actions and links |
 | `--rp-primary-hover` | `#2c4a6e` | Primary hover state |
 | `--rp-primary-light` | `#e8eef4` | Primary tinted background |
-| `--rp-success` | `#4a7c59` | Success states |
+| `--rp-success` | `#457453` | Success states |
 | `--rp-success-light` | `#e8f2eb` | Success tinted background |
 | `--rp-danger` | `#a63d40` | Destructive and error states |
 | `--rp-danger-light` | `#f9ebeb` | Error tinted background |
